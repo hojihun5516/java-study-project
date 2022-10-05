@@ -20,7 +20,6 @@ public class SecurityConfig {
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                 .anyRequest().authenticated());
         return http.build();
-
     }
 
     @Bean
