@@ -1,4 +1,4 @@
-package com.example.all.mail;
+package com.example.all;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
