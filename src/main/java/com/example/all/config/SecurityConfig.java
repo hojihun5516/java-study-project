@@ -20,10 +20,6 @@ public class SecurityConfig {
                 ).permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                 .anyRequest().authenticated());
-
-        http.formLogin().loginPage("/login").permitAll();
-
-        http.logout().logoutSuccessUrl("/");
         return http.build();
     }
 
