@@ -53,7 +53,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public void sendSignUpConfirmEmail(Account newAccount) {
+    private void sendSignUpConfirmEmail(Account newAccount) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setSubject("스터디 회원가입인증");
         mailMessage.setTo(newAccount.getEmail());
