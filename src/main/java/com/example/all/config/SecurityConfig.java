@@ -16,8 +16,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) -> authz.mvcMatchers("/", "/login", "/sign-up", "/check-email",
-                        "/check-email-token", "/email-lgoin", "/check-email-login", "/login-link", "profile/*", "/node_modules/**"
-                ).permitAll()
+                        "/check-email-token", "/email-lgoin", "/check-email-login", "/login-link", "profile/*").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                 .anyRequest().authenticated());
         return http.build();

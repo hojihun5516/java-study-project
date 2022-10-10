@@ -2,26 +2,11 @@ plugins {
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
-    id "com.github.node-gradle.node" version "2.2.3"
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
-
-node {
-    version = '18.10.0'
-    download = true
-    nodeModulesDir = file("${projectDir}/src/main/resources/static")
-}
-
-task copyFrontLib(type: Copy) {
-    from "${projectDir}/src/main/resources/static"
-    into "${projectDir}/build/resources/main/static/."
-}
-
-copyFrontLib.dependsOn npmInstall
-compileJava.dependsOn copyFrontLib
 
 configurations {
     compileOnly {
