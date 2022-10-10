@@ -1,6 +1,9 @@
 package com.example.all.account;
 
+import com.example.all.domain.Account;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,9 +18,10 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private final AccountService accountService;
     private final SignUpFormValidator signUpFormValidator;
+    private final AccountRepository accountRepository;
 
+    private final JavaMailSender mailSender;
     //SignUpForm의 camelcase
     @InitBinder("signUpForm")
     public void initBinder(WebDataBinder webDataBinder) {
@@ -35,10 +39,26 @@ public class AccountController {
         if (errors.hasErrors()) {
             return "account/sign-up";
         }
+        // TODO 회원가입 처리
+        Account account = Account.builder()
+                .email(signUpForm.getEmail())
+                .nickname(signUpForm.getNickname())
+                .password(signUpForm.getPassword()) //Encoding 해야함
+                .studyCreatedByWeb(true)
+                .studyEnrollmentResultByWeb(true)
+                .studyUpdatedByWeb(true)
+                .build();
 
-        accountService.processNewAccount(signUpForm);
+        Account newAccount = accountRepository.save(account);
+
+        newAccount.generateEmailCheckToken();
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setSubject("스터디 회원가입인증");
+        mailMessage.setTo(newAccount.getEmail());
+        mailMessage.setText("/check-email-token?token=" + newAccount.getEmailCheckToken() +
+                "&email=" + newAccount.getEmail());
+
+        mailSender.send(mailMessage);
         return "redirect:/";
     }
-
-
 }
