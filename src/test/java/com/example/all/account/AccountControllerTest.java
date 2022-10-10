@@ -32,38 +32,6 @@ class AccountControllerTest {
     @MockBean
     JavaMailSender javaMailSender;
 
-    @DisplayName("인증메일 - 입력값 오류")
-    @Test
-    void checkEmailToken_wrong_input() throws Exception {
-        mockMvc.perform(get("/check-email-token")
-                        .param("token", "alsdkjflaskdf")
-                        .param("email", "asdlf@gmail.com")
-                ).andExpect(status().isOk())
-                .andExpect(model().attributeExists("error"))
-                .andExpect(view().name("account/checked-email"));
-    }
-
-    @DisplayName("인증메일 - 입력값 정상")
-    @Test
-    void checkEmailToken_input() throws Exception {
-        Account account = Account.builder()
-                .email("test@gmail.com")
-                .password("testtest")
-                .nickname("test")
-                .build();
-        account.generateEmailCheckToken();
-        Account newAccount = accountRepository.save(account);
-
-        mockMvc.perform(get("/check-email-token")
-                        .param("token", newAccount.getEmailCheckToken())
-                        .param("email", newAccount.getEmail())
-                ).andExpect(status().isOk())
-                .andExpect(model().attributeDoesNotExist("error"))
-                .andExpect(model().attributeExists("nickname"))
-                .andExpect(model().attributeExists("numberOfUser"))
-                .andExpect(view().name("account/checked-email"));
-    }
-
     @DisplayName("회원가입 화면 잘 보이는지")
     @Test
     void signUpForm() throws Exception {
@@ -100,7 +68,7 @@ class AccountControllerTest {
         assertTrue(accountRepository.existsByEmail("test@gmail.com"));
         Account account = accountRepository.findByEmail("test@gmail.com");
         assertNotNull(account);
-        assertNotEquals(account.getPassword(), "12341234");
+        assertNotEquals(account.getPassword(),"12341234");
         assertNotNull(account.getEmailCheckToken());
         then(javaMailSender).should().send(any(SimpleMailMessage.class));
     }
