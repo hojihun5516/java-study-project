@@ -1,8 +1,9 @@
 package com.example.all.account;
 
+import com.example.all.account.form.SignUpForm;
 import com.example.all.domain.Account;
-import com.example.all.settings.Notifications;
-import com.example.all.settings.Profile;
+import com.example.all.settings.form.Notifications;
+import com.example.all.settings.form.Profile;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.mail.SimpleMailMessage;

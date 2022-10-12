@@ -2,9 +2,8 @@ package com.example.all.main;
 
 import com.example.all.account.AccountRepository;
 import com.example.all.account.AccountService;
-import com.example.all.account.SignUpForm;
+import com.example.all.account.form.SignUpForm;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.all.account;
+package com.example.all.account.form;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

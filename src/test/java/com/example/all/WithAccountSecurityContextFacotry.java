@@ -1,7 +1,7 @@
 package com.example.all;
 
 import com.example.all.account.AccountService;
-import com.example.all.account.SignUpForm;
+import com.example.all.account.form.SignUpForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
