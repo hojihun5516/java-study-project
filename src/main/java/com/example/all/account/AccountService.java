@@ -3,6 +3,7 @@ package com.example.all.account;
 import com.example.all.account.form.SignUpForm;
 import com.example.all.domain.Account;
 import com.example.all.domain.Tag;
+import com.example.all.domain.Zone;
 import com.example.all.settings.form.Notifications;
 import com.example.all.settings.form.Profile;
 import lombok.RequiredArgsConstructor;
@@ -134,5 +135,20 @@ public class AccountService implements UserDetailsService {
     public void removeTag(Account account, Tag tag) {
         Optional<Account> byId = accountRepository.findById(account.getId());
         byId.ifPresent(a -> a.getTags().remove(tag));
+    }
+
+    public Set<Zone> getZones(Account account) {
+        Optional<Account> byId = accountRepository.findById(account.getId());
+        return byId.orElseThrow().getZones();
+    }
+
+    public void addZone(Account account, Zone zone) {
+        Optional<Account> byId = accountRepository.findById(account.getId());
+        byId.ifPresent(a -> a.getZones().add(zone));
+    }
+
+    public void removeZone(Account account, Zone zone) {
+        Optional<Account> byId = accountRepository.findById(account.getId());
+        byId.ifPresent(a -> a.getZones().remove(zone));
     }
 }
